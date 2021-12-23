@@ -60,6 +60,23 @@ body {
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+
+:root {
+  --true-white: #ffffff;
+  --background-color: #f0f2f5;
+  --primary-color-light: #ff9770;
+  --text-color: #202230;
+  --separation-color: #ddd;
+  --text-color-2: #7b7b88;
+  --hover-background-color: rgba(208, 208, 208, 0.2);
+  --search-background-color: #f1f5fb;
+  --text-color-2-20: rgba(123, 123, 136, 0.2);
+  --active-color: #19cf8e;
+  --waiting-color: #ffa07c;
+  --primary-color-light-15: rgba(255, 151, 112, 0.15);
+  --black-80: rgba(0, 0, 0, 0.8);
+}
+
 ::-webkit-scrollbar {
     width: 5px;
     height: 5px

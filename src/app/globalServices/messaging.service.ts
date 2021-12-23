@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFireMessaging } from '@angular/fire/messaging';
+// import { AngularFireMessaging } from '@angular/fire/messaging';
 import firebase from 'firebase';
 import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { MessagePayload } from './globalServices/dataModel/notification-interfaces';
+import { MessagePayload } from './dataModel/notification-interfaces';
 
 
 @Injectable({

@@ -7,19 +7,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LayoutModule } from '@angular/cdk/layout';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TokenInterceptor } from './globalServices/auth-service/token-interceptor';
 import { ToastrModule } from 'ngx-toastr';
 
-const materials =
-  [LayoutModule, MatIconModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatDialogModule];
 
 
 @NgModule({
@@ -44,7 +36,6 @@ const materials =
         deps: [HttpClient]
       }
     }),
-    ...materials,
     // AngularFireModule.initializeApp(environment.firebase),
     // AngularFireMessagingModule,
     // ServiceWorkerModule.register('firebase-messaging-sw.js', { enabled: true }),

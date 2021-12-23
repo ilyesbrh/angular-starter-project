@@ -1,0 +1,96 @@
+<mat-menu #notifications="matMenu" xPosition="before">
+    <button mat-menu-item *ngFor="let item of []">
+        <mat-icon>whatshot</mat-icon> {{item.text}}
+    </button>
+</mat-menu>
+<mat-menu #settings="matMenu" xPosition="before">
+
+    <button mat-menu-item disabled>
+        <mat-icon>person</mat-icon>{{'profile' | translate | titlecase}}
+    </button>
+    <button mat-menu-item disabled>
+        <mat-icon>settings</mat-icon>{{'settings' | translate | titlecase}}
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item [matMenuTriggerFor]="language">
+        <mat-icon>translate</mat-icon>{{'language' | translate | titlecase}}
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>{{'logout' | translate | titlecase}}
+    </button>
+</mat-menu>
+<mat-menu #language="matMenu" xPosition="before">
+    <button mat-menu-item
+        *ngFor="let item of [{name:'English',value:'en'},{name:'عربي',value:'ar'},{name:'Francais',value:'fr'}]"
+        (click)="setLanguage(item.value)">
+        {{item.name}}
+    </button>
+</mat-menu>
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+
+        <h2 class="logo">HydraPharm</h2>
+
+        <div class="route-container" matRipple [matRippleColor]="'rgba(255, 204, 183, 0.2)'" [routerLink]="[ 'home']"
+            routerLinkActive="active">
+            <mat-icon svgIcon="Receipt" class="icon"></mat-icon>
+            <span class="text">{{'home' | translate | titlecase}}</span>
+        </div>
+        <div class="sub-menu-container">
+            <div class="line"></div>
+
+            <button class="sub-route-container" matRipple [matRippleColor]="'rgba(255, 204, 183, 0.2)'"
+                [routerLink]="['home_0']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                <svg viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="3" cy="3" r="3" fill="#FFE7DD" />
+                </svg>
+                <span class="route-text">{{'Home' | translate | titlecase}}</span>
+            </button>
+            <button class="sub-route-container" matRipple [matRippleColor]="'rgba(255, 204, 183, 0.2)'"
+                [routerLink]="['/home/home_1']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                <svg viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="3" cy="3" r="3" fill="#FFE7DD" />
+                </svg>
+                <span class="route-text">{{'Home' | translate | titlecase}}</span>
+            </button>
+            <button class="sub-route-container" matRipple [matRippleColor]="'rgba(255, 204, 183, 0.2)'"
+                [routerLink]="['home_2']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                <svg viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="3" cy="3" r="3" fill="#FFE7DD" />
+                </svg>
+                <span class="route-text">{{'Home' | translate | titlecase}}</span>
+            </button>
+
+        </div>
+
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar class="toolbar">
+
+            <button mat-icon-button class="toggle-nav" [ngClass]="{'active': (isHandset$ | async)}"
+                (click)="drawer.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+
+            <div class="profile-container">
+                <button mat-icon-button [matMenuTriggerFor]="notifications">
+                    <mat-icon class="icon" [svgIcon]="'Bell'"></mat-icon>
+                </button>
+                <!-- <button mat-icon-button>
+            <mat-icon class="icon" [svgIcon]="'Gear'"></mat-icon>
+          </button> -->
+
+                <button mat-icon-button class="avatar-btn" [matMenuTriggerFor]="settings">
+                    <mat-icon>person</mat-icon>
+                </button>
+
+            </div>
+
+            <mat-progress-bar class="progress" *ngIf="state.isLoading()" mode="indeterminate"></mat-progress-bar>
+
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
