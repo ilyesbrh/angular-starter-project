@@ -1,0 +1,24 @@
+@import "../../helpers.scss";
+
+:host {
+  @include layout(row) {
+    justify-content: space-between;
+  }
+
+  width: fit-content;
+  height: 58px;
+
+  ::ng-deep .icon {
+    @include spacing(margin, $x: 0px, $right: 10px);
+
+    width: 20px;
+    height: 20px;
+    svg > path {
+      stroke: var(--primary-color-light);
+      stroke-width: 1;
+    }
+  }
+  .route {
+    @extend .breadcrumb-text;
+  }
+}

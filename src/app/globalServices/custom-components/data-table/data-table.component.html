@@ -1,0 +1,43 @@
+<div class="actions">
+  <div class="search-container">
+    <mat-icon svgIcon="MagnifyingGlass" class="search-icon"></mat-icon>
+    <input type="text" class="search-input" [placeholder]="'search.placeholder' | translate" [formControl]="search">
+    <!-- custom select filter -->
+    <!-- <div class="separation"></div>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item style="width: 128px;" (click)="selectRestaurant(null)">All</button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item *ngFor="let restaurant of restaurantsList" style="width: 128px;"
+        (click)="selectRestaurant(restaurant)">{{restaurant.name}}</button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="menu" class="custom-filter">Restaurant <mat-icon svgIcon="CaretDown">
+      </mat-icon>
+    </button> -->
+  </div>
+  <button mat-button (click)="open(null)" *ngIf="newItems"><span translate>add</span>
+    <mat-icon svgIcon="PlusCircle"></mat-icon>
+  </button>
+</div>
+
+<table class="table">
+  <tr>
+    <th *ngFor="let field of fields">{{field.value | translate | titlecase }}</th>
+    <th *ngIf="actions"></th>
+    <th *ngIf="actions"></th>
+  </tr>
+  <div style="height: 10px;"></div>
+
+  <tr *ngFor="let item of filtered_data" (click)="!actions ? open(item): null">
+    <td *ngFor="let field of fields" [class]="field.class(item[field.value])">{{item[field.value]}}</td>
+    <td *ngIf="actions" class="action" (click)="open(item)">
+      <button class="edit" mat-icon-button color="primary">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </td>
+    <td *ngIf="actions" class="action">
+      <button class="delete" mat-icon-button color="warn" [swal]="state.swalConfig()" (confirm)="delete_item(item)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </tr>
+</table>

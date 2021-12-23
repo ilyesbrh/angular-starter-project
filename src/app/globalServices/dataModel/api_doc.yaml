@@ -1,0 +1,2300 @@
+openapi: 3.0.3
+info:
+  title: Restaurant API
+  version: "1"
+  description: light services delivery management system
+  x-logo:
+    url: ""
+servers:
+  - url: "https://www.lightrestaurant.com"
+    description: >-
+      Simple api description for the needed endpoint to  implement Light
+      Restaurant Platform
+    x-last-modified: 1614676569548
+paths:
+  /users/me:
+    summary: operations on connected user
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/user"
+          description: ""
+          x-last-modified: 1615217762381
+      operationId: get_me
+      description: ""
+    x-last-modified: 1615211075870
+  /users/workers:
+    summary: operations on user workers
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  vendors:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/user"
+                  delivery_workers:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/user"
+                example: ""
+              example: ""
+          description: ""
+          x-last-modified: 1615217808148
+      operationId: get_worker
+      description: ""
+    post:
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/user_upload"
+      responses:
+        "201":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615217921272
+      operationId: add_worker
+      description: ""
+    x-last-modified: 1615211140259
+  "/restaurants/{id_restaurant}":
+    summary: operations on restaurants
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Restaurant_complete"
+          description: ""
+          x-last-modified: 1615218889177
+      operationId: get_restaurant
+      description: ""
+    delete:
+      responses:
+        "204":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615218928480
+      operationId: delete_restaurant
+      description: ""
+    patch:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/restaurant_only"
+      responses:
+        "204":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615218928480
+      operationId: update_restaurant
+      description: ""
+    parameters:
+      - deprecated: false
+        example: ""
+        name: id_restaurant
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615211606634
+    x-last-modified: 1615211478199
+  /restaurants:
+    summary: operations on one restaurant
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/restaurant_only"
+                example: ""
+              example: ""
+          description: ""
+          x-last-modified: 1615218401880
+      operationId: get_restaurants
+      description: ""
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/restaurant_only"
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/201"
+          description: ""
+          x-last-modified: 1615218535997
+      operationId: add_restaurant
+      description: ""
+    x-last-modified: 1615211495495
+  "/restaurants/{id_restaurant}/categories":
+    summary: operations on restaurant categories
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/product_only"
+                example: ""
+              example: ""
+          description: ""
+          x-last-modified: 1615219311088
+      operationId: get_categories
+      description: ""
+    parameters:
+      - example: ""
+        name: id_restaurant
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615211642424
+    x-last-modified: 1615211573551
+  "/restaurants/{id_restaurant}/categories/{id_category}":
+    summary: operations on one category
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category_full"
+          description: ""
+          x-last-modified: 1615219469227
+      operationId: get_category
+      description: ""
+    delete:
+      responses:
+        "204":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615218928480
+      operationId: delete_category
+      description: ""
+    patch:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Category_only"
+      responses:
+        "204":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615218928480
+      operationId: update_category
+      description: ""
+    parameters:
+      - example: ""
+        name: id_restaurant
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615211642424
+      - deprecated: false
+        example: ""
+        name: id_category
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615211723180
+    x-last-modified: 1615211709095
+  "/restaurants/{id_restaurant}/plans":
+    summary: operations on restaurant plans
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/plan"
+                example: ""
+              example: ""
+          description: ""
+          x-last-modified: 1615219828908
+      operationId: get_plans
+      description: ""
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/plan"
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/201"
+          description: ""
+          x-last-modified: 1615219767122
+      operationId: add_plan
+      description: ""
+    parameters:
+      - name: id_restaurant
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615211642424
+    x-last-modified: 1615211887240
+  "/restaurants/{id_restaurant}/plans/{id_plan}":
+    summary: operations on one plan
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/plan"
+          description: ""
+          x-last-modified: 1615219932222
+      operationId: get_plan
+      description: ""
+    delete:
+      responses:
+        "204":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615218928480
+      operationId: delete_plan
+      description: ""
+    patch:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/plan"
+      responses:
+        "204":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615218928480
+      operationId: update_plan
+      description: ""
+    parameters:
+      - name: id_restaurant
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615211642424
+      - deprecated: false
+        example: ""
+        name: id_plan
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615213272826
+    x-last-modified: 1615213241139
+  "/restaurants/{id_restaurant}/offers":
+    summary: operations on restaurant offers
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/offer_only"
+                example: ""
+              example: ""
+          description: ""
+          x-last-modified: 1615220512432
+      operationId: get_offers
+      description: ""
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/offer_only"
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/201"
+          description: ""
+          x-last-modified: 1615220589308
+      operationId: add_offer
+      description: ""
+    parameters:
+      - name: id_restaurant
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615211642424
+    x-last-modified: 1615213347728
+  "/restaurants/{id_restaurant}/offers/{id_offer}":
+    summary: operations on one offer
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Offer_complete"
+              example: ""
+          description: ""
+          x-last-modified: 1615220703881
+      operationId: get_offer
+      description: ""
+    delete:
+      responses:
+        "204":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615218928480
+      operationId: delete_offer
+      description: ""
+    patch:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/offer_only"
+        required: true
+      responses:
+        "201":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615225370882
+      operationId: update_offer
+      description: ""
+    parameters:
+      - name: id_restaurant
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615211642424
+      - deprecated: false
+        example: ""
+        name: id_offer
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615213377179
+    x-last-modified: 1615213356275
+  "/offers/{id_offer}/images":
+    summary: operations on offer images
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/image"
+                example: ""
+              example: ""
+          description: ""
+          x-last-modified: 1615221899679
+      operationId: get_images_offer
+      description: ""
+    post:
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/image_upload"
+      responses:
+        "201":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615221963808
+      operationId: add_image_offer
+      description: ""
+    parameters:
+      - deprecated: false
+        example: ""
+        name: id_offer
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615213631991
+    x-last-modified: 1615213480302
+  "/restaurants/{id_restaurant}/images":
+    summary: operations on restaurant images
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/image"
+          description: ""
+          x-last-modified: 1615219054793
+      operationId: get_image
+      description: ""
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/image_upload"
+        required: false
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/201"
+          description: ""
+          x-last-modified: 1615219083931
+      operationId: add_image_restaurant
+      description: ""
+    parameters:
+      - deprecated: false
+        example: ""
+        name: id_restaurant
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615211661247
+    x-last-modified: 1615213543550
+  "/categories/{id_category}/products/{id_product}":
+    summary: operations on category product
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product_complete"
+          description: ""
+          x-last-modified: 1615226978740
+      operationId: get_product
+      description: ""
+    delete:
+      responses:
+        "204":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615227000660
+      operationId: delete_product
+      description: ""
+    patch:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/product_only"
+        required: true
+      responses:
+        "204":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615227086967
+      operationId: update_product
+      description: ""
+    parameters:
+      - deprecated: false
+        example: ""
+        name: id_category
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615213682072
+      - deprecated: false
+        example: ""
+        name: id_product
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615227135189
+    x-last-modified: 1615213728312
+  "/categories/{id_category}/products":
+    summary: operations on category product
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/product_only"
+                example: ""
+              example: ""
+          description: ""
+          x-last-modified: 1615222106649
+      operationId: get_products
+      description: ""
+    parameters:
+      - deprecated: false
+        example: ""
+        name: id_category
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615213682072
+    x-last-modified: 1615213753672
+  "/products/{id_product}/images":
+    summary: operations on product images
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/image"
+                example: ""
+              example: ""
+          description: ""
+          x-last-modified: 1615227561595
+      operationId: get_image_product
+      description: ""
+    post:
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/image_upload"
+        required: true
+      responses:
+        "201":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615227379805
+      operationId: add_image_product
+      description: ""
+    parameters:
+      - deprecated: false
+        example: ""
+        name: id_product
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615213881455
+    x-last-modified: 1615213863844
+  "/products/{id_product}/sizes":
+    summary: operations on product sizes
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/size_price"
+                example: ""
+          description: ""
+          x-last-modified: 1615228001912
+      operationId: get_sizes_product
+      description: ""
+    parameters:
+      - deprecated: false
+        example: ""
+        name: id_product
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615213881455
+    x-last-modified: 1615217092499
+  "/products/{id_product}/sizes/{id_size}":
+    summary: operations on product size
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                price:
+                  format: number
+                  type: number
+              example: ""
+            example: ""
+        required: true
+      responses:
+        "201":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615327099950
+      operationId: add_product_price
+      description: ""
+    delete:
+      responses:
+        "204":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615373095615
+      operationId: delete_product_size
+      description: ""
+    patch:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  format: number
+                  type: number
+                price:
+                  format: number
+                  type: number
+              example: ""
+            example: ""
+        required: true
+      responses:
+        "204":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615373095615
+      operationId: update_product_size
+      description: ""
+    parameters:
+      - deprecated: false
+        example: ""
+        name: id_product
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615213881455
+      - deprecated: false
+        example: ""
+        name: id_size
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615217130269
+    x-last-modified: 1615217117722
+  "/products/{id_product}/ingredients":
+    summary: operations on product ingredients
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ingredient_only"
+                example: ""
+              example: ""
+          description: ""
+          x-last-modified: 1615465012536
+      operationId: get_product_ingredients
+      description: ""
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ingredient_only"
+        required: true
+      responses:
+        "201":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615465041923
+      operationId: add_product_ingredient
+      description: ""
+    parameters:
+      - deprecated: false
+        example: ""
+        name: id_product
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615213881455
+    x-last-modified: 1615217160132
+  "/products/{id_product}/ingredients/{id_ingredient}":
+    summary: operations on product ingredients
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ingredient_complete"
+          description: ""
+          x-last-modified: 1615465128087
+      operationId: get_product_ingredient
+      description: ""
+    delete:
+      responses:
+        "204":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/201"
+          description: ""
+          x-last-modified: 1615465211195
+      operationId: delete_product_ingredient
+      description: ""
+    patch:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ingredient_only"
+        required: true
+      responses:
+        "204":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615465156181
+      operationId: update_product_ingredient
+      description: ""
+    parameters:
+      - deprecated: false
+        example: ""
+        name: id_product
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615213881455
+      - deprecated: false
+        example: ""
+        name: id_ingredient
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615217196420
+    x-last-modified: 1615217178026
+  /sizes:
+    summary: operation on sizes
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/size"
+                example: ""
+              example: ""
+          description: ""
+          x-last-modified: 1615465273497
+      operationId: get_sizes
+      description: ""
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/size"
+        required: true
+      responses:
+        "201":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615465293113
+      operationId: add_size
+      description: ""
+    x-last-modified: 1615217513832
+  "/sizes/{id_size}":
+    summary: operation on sizes
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/size"
+          description: ""
+          x-last-modified: 1615465422460
+      operationId: get_size
+      description: ""
+    parameters:
+      - deprecated: false
+        example: ""
+        name: id_size
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615217550106
+    x-last-modified: 1615217531668
+  "/images/{id_image}":
+    summary: operation on one image
+    delete:
+      responses:
+        "204":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/201"
+          description: ""
+          x-last-modified: 1615467717828
+      operationId: delete_image
+      description: ""
+    patch:
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/image_upload"
+        required: true
+      responses:
+        "204":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615467745955
+      operationId: update_image
+      description: ""
+    parameters:
+      - deprecated: false
+        example: ""
+        name: id_image
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615414759485
+    x-last-modified: 1615217587400
+  "/users/{id_user}":
+    summary: operations one one user
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/user"
+          description: ""
+          x-last-modified: 1615218138288
+      operationId: get_user
+      description: ""
+    delete:
+      responses:
+        "204":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615218928480
+      operationId: delete_user
+      description: ""
+    patch:
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/user_upload"
+      responses:
+        "204":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615218928480
+      operationId: update_user
+      description: ""
+    parameters:
+      - name: id_user
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615218058788
+    x-last-modified: 1615218093402
+  "/offers/{id_offer}/products/{id_product}":
+    summary: operations on offer products list
+    post:
+      tags: []
+      responses:
+        "200":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615319748068
+      operationId: add_offer_product
+    delete:
+      tags: []
+      responses:
+        "201":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615319774442
+      operationId: delete_offer_product
+    parameters:
+      - deprecated: false
+        example: ""
+        name: id_product
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615319709504
+      - deprecated: false
+        example: ""
+        name: id_offer
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615319729575
+    x-last-modified: 1615319677992
+  "/restaurants/{id_restaurant}/products":
+    summary: get all restaurant products
+    get:
+      tags: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/product_only"
+                example: ""
+              example: ""
+          description: ""
+          x-last-modified: 1615322889688
+      operationId: get_restaurant_products
+    parameters:
+      - deprecated: false
+        example: ""
+        name: id_restaurant
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615322846365
+    x-last-modified: 1615322778823
+  "/restaurants/{id_restaurant}/orders":
+    summary: operations on restaurant categories
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/order_only"
+                example: ""
+              example: ""
+          description: ""
+          x-last-modified: 1615417667808
+      operationId: get_orders_restaurant
+      description: ""
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/order_modify"
+        required: true
+      responses:
+        "201":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615458629347
+      operationId: add_order_restaurant
+      description: ""
+    parameters:
+      - example: ""
+        name: id_restaurant
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615211642424
+    x-last-modified: 1615417523256
+  "/restaurants/{id_restaurant}/orders/{id_order}":
+    summary: operation on order
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/order"
+              example: ""
+          description: ""
+          x-last-modified: 1615459033747
+      operationId: get_restaurant_order
+      summary: ""
+      description: ""
+    delete:
+      responses:
+        "204":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615459245299
+      operationId: delete_order_restaurant
+      description: ""
+    patch:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/order_modify"
+        required: true
+      responses:
+        "204":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615459285208
+      operationId: order_update
+      description: ""
+    parameters:
+      - deprecated: false
+        example: ""
+        name: id_restaurant
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615458892373
+      - deprecated: false
+        example: ""
+        name: id_order
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615458916201
+    x-last-modified: 1615458776820
+  "/ingredients/{id_ingredient}/sizes":
+    summary: operations on ingredient sizes
+    get:
+      tags: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/size_price"
+                example: ""
+          description: ""
+          x-last-modified: 1615228001912
+      operationId: get_sizes_ingredient
+      description: ""
+    parameters:
+      - deprecated: false
+        example: ""
+        name: id_ingredient
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615213881455
+    x-last-modified: 1615468355116
+  "/ingredients/{id_ingredient}/sizes/{id_size}":
+    summary: operations on ingredient size
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                price:
+                  format: number
+                  type: number
+              example: ""
+            example: ""
+        required: true
+      tags: []
+      responses:
+        "201":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615327099950
+      operationId: add_ingredient_price
+      description: ""
+    delete:
+      tags: []
+      responses:
+        "204":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615373095615
+      operationId: delete_ingredient_size
+      description: ""
+    patch:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  format: number
+                  type: number
+                price:
+                  format: number
+                  type: number
+              example: ""
+            example: ""
+        required: true
+      tags: []
+      responses:
+        "204":
+          $ref: "#/components/responses/201"
+          description: ""
+          type: ""
+          x-last-modified: 1615373095615
+      operationId: update_ingredient_size
+      description: ""
+    parameters:
+      - deprecated: false
+        example: ""
+        name: id_ingredient
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615213881455
+      - deprecated: false
+        example: ""
+        name: id_size
+        schema:
+          format: int
+          pattern: ""
+          type: number
+          example: ""
+        in: path
+        required: true
+        x-last-modified: 1615217130269
+    x-last-modified: 1615468385299
+  "/users/workers/delivery_man/{id_restaurant}":
+    summary: operations on restaurant delivery workers
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/user"
+          description: ""
+          x-last-modified: 1615569718101
+      operationId: get_worker
+      description: ""
+      tags: []
+    x-last-modified: 1615569962205
+    parameters:
+      - name: id_restaurant
+        in: path
+        example: ""
+        required: true
+        deprecated: false
+        schema:
+          example: ""
+          type: number
+          format: int
+          pattern: ""
+        x-last-modified: 1615569982969
+components:
+  schemas:
+    user:
+      type: object
+      properties:
+        id:
+          type: number
+        username:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        password:
+          type: string
+        address__fr:
+          type: string
+        address__ar:
+          type: string
+        address__en:
+          type: string
+        link_photo:
+          type: string
+        role:
+          type: string
+        verified:
+          type: boolean
+        status:
+          type: boolean
+        restaurants_id:
+          type: number
+      example:
+        id: 5
+        username: ilies lvondeur
+        email: brhilyes@gmail.com
+        phone: 0550595660
+        password: brhilyes@gmail.com
+        address__fr: azer
+        address__ar: azer
+        address__en: azer
+        link_photo: server/image.jpg
+        role: delivery
+        verified: false
+        status: false
+        restaurants_id: 0
+      x-last-modified: 1615197687303
+    user_upload:
+      type: object
+      properties:
+        id:
+          type: number
+        username:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        password:
+          type: string
+        address__fr:
+          type: string
+        address__ar:
+          type: string
+        address__en:
+          type: string
+        link_photo:
+          format: binary
+          type: string
+        role:
+          type: string
+        verified:
+          type: boolean
+        status:
+          type: boolean
+        restaurants_id:
+          type: number
+      example:
+        id: 5
+        username: ilies lvondeur
+        email: brhilyes@gmail.com
+        phone: 0550595660
+        password: brhilyes@gmail.com
+        address__fr: azer
+        address__ar: azer
+        address__en: azer
+        link_photo: File
+        role: delivery
+        verified: false
+        status: false
+        restaurants_id: 0
+      x-last-modified: 1615198288890
+    Restaurant_complete:
+      type: object
+      properties:
+        id:
+          format: int
+          type: number
+        name__ar:
+          type: string
+        name__fr:
+          type: string
+        name__en:
+          type: string
+        address__en:
+          type: string
+        address__ar:
+          type: string
+        address__fr:
+          type: string
+        description__ar:
+          type: string
+        description__fr:
+          type: string
+        description__en:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        facebook:
+          type: string
+        twitter:
+          type: string
+        instagram:
+          type: string
+        youtube:
+          type: string
+        status:
+          type: boolean
+        rating:
+          format: int
+          type: number
+        users_id:
+          format: int
+          type: number
+        images:
+          type: array
+          items:
+            $ref: "#/components/schemas/image"
+        offers:
+          type: array
+          items:
+            $ref: "#/components/schemas/offer_only"
+        plans:
+          type: array
+          items:
+            $ref: "#/components/schemas/plan"
+        categories:
+          type: array
+          items:
+            $ref: "#/components/schemas/Category_only"
+      example:
+        id: 2
+        name__ar: ilies
+        name__fr: ilies
+        name__en: ilies
+        description__ar: ilies
+        description__fr: ilies
+        description__en: ilies
+        address__ar: ilies
+        address__fr: ilies
+        address__en: ilies
+        email: ilies@gmail.com
+        latitude: 100.1366
+        longitude: 100.1366
+        facebook: fb.com
+        twitter: tw.com
+        instagram: ins.com
+        youtube: yt.com
+        status: false
+        rating: 5
+        users_id: 132
+        images:
+          - {}
+        offers:
+          - {}
+        plans:
+          - {}
+        categories:
+          - {}
+      x-last-modified: 1615199157091
+    restaurant_only:
+      type: object
+      properties:
+        id:
+          format: int
+          type: number
+        name__ar:
+          type: string
+        name__fr:
+          type: string
+        name__en:
+          type: string
+        address__en:
+          type: string
+        address__ar:
+          type: string
+        address__fr:
+          type: string
+        description__ar:
+          type: string
+        description__fr:
+          type: string
+        description__en:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        facebook:
+          type: string
+        twitter:
+          type: string
+        instagram:
+          type: string
+        youtube:
+          type: string
+        status:
+          type: boolean
+        rating:
+          format: int
+          type: number
+        users_id:
+          format: int
+          type: number
+      example:
+        id: 2
+        name__ar: ilies
+        name__fr: ilies
+        name__en: ilies
+        description__ar: ilies
+        description__fr: ilies
+        description__en: ilies
+        address__ar: ilies
+        address__fr: ilies
+        address__en: ilies
+        email: ilies@gmail.com
+        latitude: 100.1366
+        longitude: 100.1366
+        facebook: fb.com
+        twitter: tw.com
+        instagram: ins.com
+        youtube: yt.com
+        status: false
+        rating: 5
+        users_id: 132
+      x-last-modified: 1615199199218
+    Product_complete:
+      type: object
+      properties:
+        id:
+          type: number
+        name__ar:
+          type: string
+        name__fr:
+          type: string
+        name__en:
+          type: string
+        description__ar:
+          type: string
+        description__fr:
+          type: string
+        description__en:
+          type: string
+        has_supplements:
+          type: boolean
+        rating:
+          type: number
+        categories_id:
+          type: number
+        images:
+          type: array
+          items:
+            $ref: "#/components/schemas/image"
+        ingredients:
+          type: array
+          items:
+            $ref: "#/components/schemas/ingredient_only"
+        prices:
+          type: array
+          items:
+            type: object
+            properties:
+              size:
+                $ref: "#/components/schemas/size"
+              price:
+                format: int
+                type: number
+      example:
+        id: 2
+        name__ar: ilies
+        name__fr: ilies
+        name__en: ilies
+        description__ar: ilies
+        description__fr: ilies
+        description__en: ilies
+        has_supplements: false
+        rating: 5
+        categories_id: 132
+        images:
+          - {}
+        ingredients:
+          - {}
+        prices:
+          - {}
+      x-last-modified: 1615199432911
+    product_only:
+      type: object
+      properties:
+        id:
+          type: number
+        name__ar:
+          type: string
+        name__fr:
+          type: string
+        name__en:
+          type: string
+        description__ar:
+          type: string
+        description__fr:
+          type: string
+        description__en:
+          type: string
+        has_supplements:
+          type: boolean
+        rating:
+          type: number
+        categories_id:
+          type: number
+      example:
+        id: 2
+        name__ar: ilies
+        name__fr: ilies
+        name__en: ilies
+        description__ar: ilies
+        description__fr: ilies
+        description__en: ilies
+        has_supplements: false
+        rating: 5
+        categories_id: 132
+      x-last-modified: 1615199461711
+    size:
+      type: object
+      properties:
+        id:
+          type: number
+        name__ar:
+          type: string
+        name__fr:
+          type: string
+        name__en:
+          type: string
+      example:
+        id: 12
+        name__ar: azer
+        name__fr: azer
+        name__en: azer
+      x-last-modified: 1615199675645
+    plan:
+      type: object
+      properties:
+        id:
+          type: number
+        day__ar:
+          type: string
+        day__fr:
+          type: string
+        day__en:
+          type: string
+        open_at:
+          type: string
+        close_at:
+          type: string
+        restaurants_id:
+          format: int
+          type: number
+      example:
+        id: 12
+        day__ar: azer
+        day__fr: azer
+        day__en: azer
+        open_at: "HH:MM"
+        close_at: "HH:MM"
+        restaurants_id: 135
+      x-last-modified: 1615199738754
+    Offer_complete:
+      type: object
+      properties:
+        id:
+          type: number
+        name__ar:
+          type: string
+        name__fr:
+          type: string
+        name__en:
+          type: string
+        description__ar:
+          type: string
+        description__fr:
+          type: string
+        description__en:
+          type: string
+        type__ar:
+          type: string
+        type__fr:
+          type: string
+        type__en:
+          type: string
+        price:
+          type: number
+        restaurants_id:
+          type: number
+        images:
+          type: array
+          items:
+            $ref: "#/components/schemas/image"
+        products:
+          type: array
+          items:
+            $ref: "#/components/schemas/product_only"
+      example:
+        id: 2
+        name__ar: offer
+        name__fr: offer
+        name__en: offer
+        description__ar: offer x
+        description__fr: offer x
+        description__en: offer x
+        type__ar: offer x
+        type__fr: offer x
+        type__en: offer x
+        price: 5
+        restaurants_id: 132
+        images:
+          - {}
+        products:
+          - {}
+      x-last-modified: 1615199858942
+    offer_only:
+      type: object
+      properties:
+        id:
+          type: number
+        name__ar:
+          type: string
+        name__fr:
+          type: string
+        name__en:
+          type: string
+        description__ar:
+          type: string
+        description__fr:
+          type: string
+        description__en:
+          type: string
+        type__ar:
+          type: string
+        type__fr:
+          type: string
+        type__en:
+          type: string
+        price:
+          type: number
+        restaurants_id:
+          type: number
+      example:
+        id: 2
+        name__ar: offer
+        name__fr: offer
+        name__en: offer
+        description__ar: offer x
+        description__fr: offer x
+        description__en: offer x
+        type__ar: offer x
+        type__fr: offer x
+        type__en: offer x
+        price: 5
+        restaurants_id: 132
+      x-last-modified: 1615199914747
+    Ingredient_complete:
+      type: object
+      properties:
+        id:
+          type: number
+        name__ar:
+          type: string
+        name__fr:
+          type: string
+        name__en:
+          type: string
+        products_id:
+          type: number
+        prices:
+          type: array
+          items:
+            type: object
+            properties:
+              size:
+                $ref: "#/components/schemas/size"
+              price:
+                type: number
+      example:
+        id: 12
+        name__ar: azer
+        name__fr: azer
+        name__en: azer
+        products_id: 135
+        prices:
+          - size: {}
+            price: 1654
+      x-last-modified: 1615200028655
+    ingredient_only:
+      type: object
+      properties:
+        id:
+          type: number
+        name__ar:
+          type: string
+        name__fr:
+          type: string
+        name__en:
+          type: string
+        products_id:
+          type: number
+      example:
+        id: 12
+        name__ar: azer
+        name__fr: azer
+        name__en: azer
+        products_id: 135
+      x-last-modified: 1615200054781
+    image:
+      type: object
+      properties:
+        id:
+          format: int
+          type: number
+        url:
+          type: string
+        resources_id:
+          format: int
+          type: number
+      example:
+        id: 145
+        url: server/img.jpg
+        resources_id: 16
+      x-last-modified: 1615201290133
+    Category_full:
+      type: object
+      properties:
+        id:
+          type: number
+        name__ar:
+          type: string
+        name__fr:
+          type: string
+        name__en:
+          type: string
+        restaurants_id:
+          type: number
+        products:
+          type: array
+          items:
+            $ref: "#/components/schemas/product_only"
+      example:
+        id: 2
+        name__ar: offer
+        name__fr: offer
+        name__en: offer
+        restaurants_id: 132
+        products:
+          - {}
+      x-last-modified: 1615201417477
+    Category_only:
+      type: object
+      properties:
+        id:
+          type: number
+        name__ar:
+          type: string
+        name__fr:
+          type: string
+        name__en:
+          type: string
+        restaurants_id:
+          type: number
+      example:
+        id: 2
+        name__ar: offer
+        name__fr: offer
+        name__en: offer
+        restaurants_id: 132
+      x-last-modified: 1615201437452
+    size_price:
+      type: object
+      properties:
+        size:
+          type: object
+          properties:
+            id:
+              type: number
+            name__ar:
+              type: string
+            name__fr:
+              type: string
+            name__en:
+              type: string
+        price:
+          type: number
+      example:
+        size:
+          id: 12
+          name__ar: azer
+          name__fr: azer
+          name__en: azer
+        price: 2333
+      x-last-modified: 1615227969354
+    order_only:
+      type: object
+      properties:
+        id:
+          type: number
+        latitude_delivery:
+          type: number
+        longitude_delivery:
+          type: number
+        address_delivery:
+          type: string
+        description_cancellation__en:
+          type: string
+        description_cancellation__ar:
+          type: string
+        description_cancellation__fr:
+          type: string
+        price:
+          type: number
+        confirmation_status:
+          type: boolean
+        cooked_status:
+          type: boolean
+        consult_status:
+          type: boolean
+        delivery_status:
+          type: boolean
+        received_status:
+          type: boolean
+        order_date_time:
+          type: number
+        date_time_received:
+          type: number
+        customer:
+          $ref: "#/components/schemas/user"
+        delivery_man:
+          $ref: "#/components/schemas/user"
+        restaurants_id:
+          type: number
+      example:
+        id: 1
+        latitude_delivery: 123.145
+        longitude_delivery: 145.1222
+        address_delivery: bba hotel beni hamad
+        description_cancellation__en: string
+        description_cancellation__ar: string
+        description_cancellation__fr: string
+        price: 10000
+        confirmation_status: false
+        cooked_status: false
+        consult_status: false
+        delivery_status: false
+        received_status: false
+        order_date_time: 1245607515
+        date_time_received: 1245607515
+        customer: user
+        delivery_man: user
+        restaurants_id: 145
+      x-last-modified: 1615417203539
+    order_modify:
+      type: object
+      properties:
+        id:
+          type: number
+        latitude_delivery:
+          type: number
+        longitude_delivery:
+          type: number
+        address_delivery:
+          type: string
+        description_cancellation__en:
+          type: string
+        description_cancellation__fr:
+          type: string
+        description_cancellation__ar:
+          type: string
+        confirmation_status:
+          type: boolean
+        cooked_status:
+          type: boolean
+        consult_status:
+          type: boolean
+        delivery_status:
+          type: boolean
+        received_status:
+          type: boolean
+        order_date_time:
+          type: number
+        date_time_received:
+          type: number
+        customer:
+          type: string
+        delivery_man:
+          type: string
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              product:
+                type: number
+              size:
+                type: number
+              quantity:
+                type: number
+              ingredients:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    ingredient:
+                      type: number
+                    size:
+                      type: number
+                    quantity:
+                      type: number
+        offers:
+          type: array
+          items:
+            type: object
+            properties:
+              offer:
+                type: number
+              quantity:
+                type: number
+        restaurants_id:
+          type: number
+      example:
+        id: 1
+        latitude_delivery: 123.145
+        longitude_delivery: 145.1222
+        address_delivery: bba hotel beni hamad
+        description_cancellation__en: azer azer
+        description_cancellation__fr: azer azer
+        description_cancellation__ar: azer azer
+        confirmation_status: false
+        cooked_status: false
+        consult_status: false
+        delivery_status: false
+        received_status: false
+        order_date_time: 1245607515
+        date_time_received: 1245607515
+        customer: user
+        delivery_man: user
+        products:
+          - product: 1
+            size: 2
+            quantity: 10
+            ingredients:
+              - ingredient: 1
+                size: 3
+                quantity: 16
+        offers:
+          - offer: 3
+            quantity: 3
+        restaurants_id: 145
+      x-last-modified: 1615418156753
+    image_upload:
+      type: object
+      properties:
+        id:
+          format: int
+          type: number
+        photo:
+          format: binary
+          type: string
+      example:
+        id: 12
+        photo: BINARY
+      x-last-modified: 1615467818616
+    order:
+      type: object
+      properties:
+        id:
+          type: number
+        latitude_delivery:
+          type: number
+        longitude_delivery:
+          type: number
+        address_delivery:
+          type: string
+        description_cancellation__en:
+          type: string
+        description_cancellation__ar:
+          type: string
+        description_cancellation__fr:
+          type: string
+        price:
+          type: number
+        confirmation_status:
+          type: boolean
+        cooked_status:
+          type: boolean
+        consult_status:
+          type: boolean
+        delivery_status:
+          type: boolean
+        received_status:
+          type: boolean
+        order_date_time:
+          type: number
+        date_time_received:
+          type: number
+        customer:
+          $ref: "#/components/schemas/user"
+        delivery_man:
+          $ref: "#/components/schemas/user"
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              product:
+                type: string
+              size:
+                $ref: "#/components/schemas/size"
+              quantity:
+                type: number
+              ingredients:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    ingredient:
+                      $ref: "#/components/schemas/ingredient_only"
+                    size:
+                      $ref: "#/components/schemas/size"
+                    quantity:
+                      type: number
+        offers:
+          type: array
+          items:
+            type: object
+            properties:
+              offer:
+                $ref: "#/components/schemas/offer_complete"
+              quantity:
+                type: number
+        restaurants_id:
+          type: number
+      example:
+        id: 1
+        latitude_delivery: 123.145
+        longitude_delivery: 145.1222
+        address_delivery: bba hotel beni hamad
+        description_cancellation__en: string
+        description_cancellation__ar: string
+        description_cancellation__fr: string
+        price: 10000
+        confirmation_status: false
+        cooked_status: false
+        consult_status: false
+        delivery_status: false
+        received_status: false
+        order_date_time: 1245607515
+        date_time_received: 1245607515
+        customer: user
+        delivery_man: user
+        products:
+          - product: Product
+            size: size
+            quantity: 10
+            ingredients:
+              - ingredient: Ingredient
+                size: size
+                quantity: 16
+        offers:
+          - offer: Offer
+            quantity: 3
+        restaurants_id: 145
+      x-last-modified: 1615522433301
+  responses:
+    "200":
+      content:
+        application/json:
+          schema:
+            type: object
+            example: ""
+      description: Operation succeeded
+      x-last-modified: 1615210434704
+    "201":
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                format: int
+                type: number
+            example: ""
+          example: ""
+      description: Operation succeeded
+      x-last-modified: 1615210978463
+  headers:
+    Authorization:
+      required: true
+      deprecated: false
+      schema:
+        format: ""
+        pattern: 'Bearer\s[\d|a-f]{8}-([\d|a-f]{4}-){3}[\d|a-f]{12}'
+        type: string
+        example: ""
+      example: ""
+      description: Authorization header
+    lang:
+      required: true
+      deprecated: false
+      schema:
+        format: ""
+        pattern: ""
+        enum:
+          - ar
+          - fr
+          - en
+        type: string
+        example: ""
+      example: ""
+  securitySchemes: {}
+  parameters: {}
+tags: []
+security: []

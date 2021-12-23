@@ -1,0 +1,13 @@
+<div class="action-container">
+  <button mat-raised-button class="btn" color="primary" *ngIf="!changed" (click)="onChange()" translate>
+    {{ 'upload' | translate}}
+  </button>
+  <button mat-raised-button class="btn primary" color="accent" *ngIf="changed" (click)="onSave()" translate>
+    {{ 'save' |translate }}
+    <mat-icon>save</mat-icon>
+  </button>
+</div>
+
+<image-cropper #cropper [aspectRatio]="3/2" [imageURL]="data?.event?.link" [maintainAspectRatio]="true" format="png"
+  (imageCropped)="imageCropped($event)" (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()">
+</image-cropper>

@@ -1,0 +1,200 @@
+@import "../../helpers.scss";
+
+// Layout
+
+:host {
+  @include layout(column) {
+    justify-content: flex-start;
+  }
+
+  .actions {
+    @include layout(row) {
+      justify-content: space-between;
+    }
+  }
+}
+
+// style
+:host {
+  width: calc(100% - 40px);
+
+  @include spacing(margin, $y: 12px);
+  @include spacing(padding, $x: 20px, $y: 40px);
+
+  border-radius: 10px;
+
+  box-shadow: 0px 4px 40px rgba(4, 35, 71, 0.1);
+
+  background-color: var(--true-white);
+
+  .actions {
+    width: 100%;
+
+    margin-bottom: 40px;
+    .search-container {
+      @include layout(row) {
+        justify-content: space-between;
+      }
+
+      height: 40px;
+      width: fit-content;
+
+      padding-left: 14px;
+      border-radius: 4px;
+      background-color: var(--search-background-color);
+
+      ::ng-deep mat-icon {
+        color: var(--text-color-2);
+      }
+
+      .search-icon {
+        padding-right: 10px;
+        height: 20px;
+        width: 20px;
+      }
+      .search-input {
+        max-width: 320px;
+        width: 20vw;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        &::-webkit-input-placeholder {
+          /* Chrome/Opera/Safari */
+          color: rgba(123, 123, 136, 0.5);
+        }
+        color: var(--text-color-2);
+      }
+
+      .separation {
+        width: 1px;
+        height: 20px;
+        flex-grow: 0;
+        background-color: var(--text-color-2-20);
+      }
+
+      .custom-filter {
+        @extend .button-text;
+
+        height: 100%;
+        color: var(--text-color-2);
+      }
+    }
+
+    > button {
+      display: flex;
+      align-items: center;
+
+      @extend .button-text;
+
+      height: 36px;
+      padding: 0 20px;
+
+      background-color: var(--primary-color-light);
+
+      color: var(--true-white);
+      mat-icon {
+        margin-left: 8px;
+      }
+    }
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse !important;
+    tr {
+      @include spacing(margin, $x: 0, $y: 0, $right: 0px, $bottom: 10px);
+
+      &:first-child {
+        border-bottom: 1px solid var(--separation-color);
+        height: fit-content;
+        th {
+          @extend .table-header-text;
+          text-transform: capitalize;
+
+          padding: 6px 0px 10px 15px;
+          text-align: start;
+        }
+      }
+
+      &:not(:first-child) {
+        td {
+          padding: 5px 0;
+          padding-left: 15px;
+          &.action {
+            width: 40px;
+            .edit {
+              color: grey;
+              opacity: 50%;
+            }
+            .delete {
+              color: grey;
+              opacity: 50%;
+            }
+          }
+        }
+        &:hover {
+          td {
+            color: var(--text-color);
+            &.waiting {
+              color: var(--waiting-color);
+              &.active {
+                color: var(--active-color);
+              }
+            }
+            .edit {
+              color: mat-color($primary, 600);
+              opacity: 1;
+            }
+            .delete {
+              opacity: 1;
+              color: mat-color($warn, 600);
+            }
+          }
+
+          background: linear-gradient(180deg, var(--hover-background-color) 0%, var(--hover-background-color) 100%);
+        }
+
+        td:first-child {
+          /* border-radius = top left, top right, bottom right, bottom left */
+          border-radius: 6px 0 0 6px; /* curves the top left */
+        }
+
+        td:last-child {
+          border-radius: 0 6px 6px 0; /* curves the top right */
+        }
+      }
+
+      td {
+        @extend .table-text;
+
+        height: 39px;
+
+        max-width: 120px;
+
+        @include spacing(padding, $x: 20px, $right: 0px);
+
+        text-align: start;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+
+        cursor: pointer;
+
+        &.waiting {
+          color: var(--waiting-color);
+          &.active {
+            color: var(--active-color);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1400px) {
+  :host {
+    width: calc(100% - 80px);
+
+    @include spacing(padding, $x: 40px, $y: 60px);
+  }
+}

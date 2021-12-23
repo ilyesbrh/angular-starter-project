@@ -1,0 +1,7 @@
+<div class="tab" #element *ngFor="let tab of tabs; let i=index" [ngClass]="{'active': index === i}"
+  (click)="setIndex(i,element)">
+  {{tab| translate| titlecase}}
+</div>
+
+
+<div class="active-line" [ngStyle]="{'left': leftOffset,'width':width}"></div>

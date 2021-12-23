@@ -1,0 +1,30 @@
+<ng-container *ngIf="this.model">
+  <h2 class="header"> {{'price' | translate | titlecase}} </h2>
+  <mat-form-field class="input-1" appearance="outline">
+    <mat-label>{{'size' | translate | titlecase}}</mat-label>
+    <mat-select [(ngModel)]="model.size_id" name="item">
+      <mat-option *ngFor="let item of sizes" [value]="item.id">
+        {{item.size}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="input-2" appearance="outline">
+    <mat-label>{{'product' | translate | titlecase}}</mat-label>
+    <mat-select [(ngModel)]="model.product_id" name="item">
+      <mat-option *ngFor="let item of products" [value]="item.id">
+        {{item.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="input-3" appearance="outline">
+    <mat-label>{{'quantity' | translate | titlecase}}</mat-label>
+    <input matInput placeholder="label" type="number" value="value" [(ngModel)]="model.quantity">
+  </mat-form-field>
+
+  <button class="btn-1" mat-raised-button (click)="save()" translate>save</button>
+  <button class="btn-2" mat-icon-button color="warn" [swal]="state.swalConfig()" (confirm)="delete()">
+    <mat-icon>delete</mat-icon>
+  </button>
+  <button class="btn-3" mat-button (click)="cancel()" translate>cancel</button>
+
+</ng-container>

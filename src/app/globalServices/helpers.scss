@@ -1,0 +1,45 @@
+@import "../../theme.scss";
+
+// Colors
+$primary: map-get($frontend-theme, primary);
+$accent: map-get($frontend-theme, accent);
+$background: map-get($frontend-theme, background);
+$foreground: map-get($frontend-theme, foreground);
+$warn: map-get($frontend-theme, warn);
+
+//helpers
+@mixin layout($type) {
+  display: flex;
+
+  @if $type == column {
+    flex-direction: column;
+  }
+
+  align-items: center;
+  justify-content: center;
+  @content;
+}
+
+@mixin spacing($property, $y: 0, $bottom: $y, $x: 0, $right: $x) {
+  #{$property}-top: $y;
+  #{$property}-bottom: $bottom;
+  #{$property}-left: $x;
+  #{$property}-right: $right;
+}
+
+@mixin elevation($value) {
+  @include mat-elevation($value, grey, 0.6);
+}
+
+.ripple {
+  background-position: center;
+  transition: background 0.8s;
+  &:hover {
+    background: white radial-gradient(circle, transparent 1%, white 1%) center/15000%;
+  }
+  &:active {
+    background-color: var(--hover-background-color);
+    background-size: 100%;
+    transition: background 0s;
+  }
+}
