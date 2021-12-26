@@ -16,16 +16,6 @@ export class StateManager {
   private _me: User;
   private _me_loading = false;
   private _me_loaded = new Subject();
-  private _restaurants: Restaurant[];
-  private _restaurants_loading = false;
-  private _restaurants_loaded = new Subject();
-  private _delivery_workers: User[];
-  private _delivery_workers_loading = false;
-  private _delivery_workers_loaded = new Subject();
-  private _sizes: Size[];
-  private _sizes_loading = false;
-  private _sizes_loaded = new Subject();
-  private _selected_restaurant: Restaurant;
 
   private _loading: Boolean;
 
@@ -40,7 +30,7 @@ export class StateManager {
   constructor(public http: RestService, private translate: TranslateService) { }
 
   public isLoading() {
-    return this._me_loading || this._sizes_loading || this._restaurants_loading || this._delivery_workers_loading || this._loading;
+    return this._me_loading || this._loading;
   }
 
   public swalConfig() {
@@ -56,7 +46,6 @@ export class StateManager {
       showCancelButton: true
     };
   }
-
 
   public async get_factory<r>(target: string, getter: Function, ...params: any): Promise<r> {
 
@@ -80,54 +69,6 @@ export class StateManager {
   }
 
   public get_me = async (): Promise<User> => this.get_factory<User>('me', this.http.me_GET);
-  public get_restaurants = async (): Promise<Restaurant[]> => this.get_factory<Restaurant[]>('restaurants', this.http.restaurants_GET, (await this.get_sizes()));
-  public get_sizes = (): Promise<Size[]> => this.get_factory<Size[]>('sizes', this.http.Sizes_GET);
-  public update_sizes = async () => {
-    this._sizes = await this.http.Sizes_GET();
-  };
-
-
-  public get_delivery_workers = async (force = true): Promise<User[]> => {
-
-    const selected_restaurant = await this.get_selectedRestaurant()
-
-    if (force) return await this.http.WorkersDeliveryman_GET(selected_restaurant.id);
-
-    return this.get_factory<User[]>('delivery_workers', this.http.WorkersDeliveryman_GET, selected_restaurant.id)
-  };
-
-  public async set_selectedRestaurant(restaurant_id: any) {
-
-    if (this._selected_restaurant && restaurant_id == this._selected_restaurant.id) return this._selected_restaurant;
-
-    const sizes = await this.get_sizes();
-    this._selected_restaurant = await this.http.Restaurant_GET(restaurant_id, sizes);
-
-    this._delivery_workers = null;
-    await this.get_delivery_workers();
-
-    localStorage.setItem('selected_restaurant', restaurant_id);
-
-    return this._selected_restaurant;
-  }
-
-  public async get_selectedRestaurant(): Promise<Restaurant> {
-
-    if (this._selected_restaurant) return this._selected_restaurant;
-
-    try {
-      /* try to get id from local storage */
-      let id = Number.parseInt(localStorage.getItem('selected_restaurant'));
-      const sizes = await this.get_sizes();
-      this._selected_restaurant = await this.http.Restaurant_GET(id, sizes);
-      return this._selected_restaurant;
-    } catch (error) {
-      /* if there is no cached id get the first item in restaurants if exists else return null*/
-      const restaurants = await this.get_restaurants();
-      return restaurants.length > 0 ? restaurants[0] : null;
-    }
-
-  }
 
 
   public toDataURL(file) {
